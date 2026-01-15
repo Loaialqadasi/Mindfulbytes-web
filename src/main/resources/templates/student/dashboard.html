@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body style="background-color: #f0f8fa; font-family: 'Poppins', sans-serif">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="d-flex">
+      <!-- SIDEBAR (From Friend's Design) -->
+      <div
+        class="d-none d-md-block bg-white shadow-sm p-4"
+        style="width: 250px; min-height: 100vh"
+      >
+        <h5 class="fw-bold mb-4" style="color: #2c3e50">Mindful Bytes</h5>
+
+        <a
+          href="/student/dashboard"
+          class="d-block text-decoration-none mb-3 fw-bold p-2 rounded"
+          style="background-color: #6baa95; color: white"
+        >
+          <i class="fas fa-home me-2"></i> Dashboard
+        </a>
+        <a
+          href="/assessment/history"
+          class="d-block text-decoration-none mb-3 text-muted p-2 hover-effect"
+        >
+          <i class="fas fa-history me-2"></i> History
+        </a>
+        <a
+          href="/student/profile"
+          class="d-block text-decoration-none mb-3 text-muted p-2 hover-effect"
+        >
+          <i class="fas fa-user me-2"></i> Profile
+        </a>
+
+        <hr />
+        <a
+          href="/logout"
+          class="d-block text-decoration-none mb-3 text-danger p-2"
+        >
+          <i class="fas fa-sign-out-alt me-2"></i> Logout
+        </a>
+      </div>
+
+      <!-- MAIN CONTENT AREA -->
+      <div class="flex-grow-1 p-5">
+        <!-- Dynamic Welcome Message -->
+        <!-- Note: We use a default 'Student' if username is null to prevent errors -->
+        <h2 class="fw-bold mb-2" style="color: #2c3e50">
+          Hello,
+          <span th:text="${username != null ? username : 'Student'}"
+            >Student</span
+          >! 👋
+        </h2>
+        <p class="text-muted mb-4">
+          Welcome back to your safe space. What would you like to do today?
+        </p>
+
+        <!-- CARDS GRID -->
+        <div class="row g-4">
+          <!-- 1. ASSESSMENT CARD (Your Feature) -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 shadow-sm border-0 p-4"
+              style="border-top: 4px solid #6baa95 !important"
+            >
+              <div class="card-body">
+                <div class="mb-3">
+                  <i
+                    class="fas fa-clipboard-check fa-2x"
+                    style="color: #6baa95"
+                  ></i>
+                </div>
+                <h5 class="card-title fw-bold" style="color: #2c3e50">
+                  Mental Health Check
+                </h5>
+                <p class="card-text text-muted small">
+                  Reflect on your well-being with our secure assessment.
+                </p>
+                <a
+                  href="/assessment"
+                  class="btn text-white w-100 rounded-pill mt-3"
+                  style="background-color: #6baa95"
+                  >Start Assessment</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. SUPPORT RESOURCES (Your Feature) -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 shadow-sm border-0 p-4"
+              style="border-top: 4px solid #3498db !important"
+            >
+              <div class="card-body">
+                <div class="mb-3">
+                  <i
+                    class="fas fa-book-reader fa-2x"
+                    style="color: #3498db"
+                  ></i>
+                </div>
+                <h5 class="card-title fw-bold" style="color: #2c3e50">
+                  Support Library
+                </h5>
+                <p class="card-text text-muted small">
+                  Access videos, articles, and our AI Assistant.
+                </p>
+                <div class="d-flex gap-2 mt-3">
+                  <a
+                    href="/student/library"
+                    class="btn btn-outline-primary flex-grow-1 rounded-pill"
+                    >Library</a
+                  >
+                  <a
+                    href="/student/chatbot"
+                    class="btn btn-outline-success flex-grow-1 rounded-pill"
+                    >AI Chat</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. PROGRESS TRACKER (Friend's Feature) -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 shadow-sm border-0 p-4"
+              style="border-top: 4px solid #e67e22 !important"
+            >
+              <div class="card-body">
+                <div class="mb-3">
+                  <i class="fas fa-chart-line fa-2x" style="color: #e67e22"></i>
+                </div>
+                <h5 class="card-title fw-bold" style="color: #2c3e50">
+                  Progress Tracker
+                </h5>
+                <p class="card-text text-muted small">
+                  Track your mood history and assessment scores.
+                </p>
+                <!-- Linked to your History page -->
+                <a
+                  href="/student/tracker"
+                  class="btn text-white w-100 rounded-pill mt-3"
+                  style="background-color: #e67e22"
+                  >Track Progress</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/student/assessment.css}" />
+  </head>
+  <body class="bg-light">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="container mt-5 mb-5" style="max-width: 800px">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold mb-3">Assessment Results</h2>
+        <p class="text-muted">
+          Here are your personalized feedback and recommendations based on your
+          assessment.
+        </p>
+      </div>
+
+      <div class="card shadow-sm p-4 mb-5">
+        <h4 class="fw-bold">
+          <!-- FIXED: Uses ${score} instead of ${result.score} -->
+          Your Score: <span th:text="${score}"></span> /
+          <span th:text="${maxScore}"></span>
+        </h4>
+
+        <!-- FIXED: Uses ${status} for the colored badge -->
+        <div class="mt-2 mb-3">
+          <span
+            class="badge rounded-pill px-3 py-2"
+            th:classappend="${badgeClass}"
+            th:text="${status}"
+            >Status</span
+          >
+        </div>
+
+        <!-- FIXED: Uses ${feedbackText} instead of ${result.feedback} -->
+        <p class="mt-3" th:text="${feedbackText}"></p>
+      </div>
+
+      <div class="text-center">
+        <!-- FIXED: Added parameters for the download logic -->
+        <a
+          th:href="@{/assessment/download(data=${downloadData})}"
+          class="btn btn-success rounded-pill px-4 py-2"
+        >
+          <i class="fas fa-download"></i> Download Report
+        </a>
+
+        <!-- FIXED: Correct URL for history -->
+        <a
+          th:href="@{/assessment/history}"
+          class="btn btn-info rounded-pill px-4 py-2 ms-2 text-white"
+        >
+          <i class="fas fa-history"></i> View History
+        </a>
+
+        <a
+          th:href="@{/student/dashboard}"
+          class="btn btn-primary rounded-pill px-4 py-2 ms-2"
+        >
+          <i class="fas fa-home"></i> Back to Dashboard
+        </a>
+      </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+    <main class="content">
+      <div class="counselors-wrapper">
+        <div class="counselors-header">
+          <h2>Meet Our Counselors</h2>
+          <p>Find the right professional. All sessions are confidential.</p>
+        </div>
+        <div class="counselor-grid">
+          <!-- Add 4 cards -->
+          <div class="counselor-card">
+            <div class="counselor-photo" style="background-color: #ddd"></div>
+            <h3 class="counselor-name">Dr. Nurul Aida</h3>
+            <p class="counselor-bio">
+              Specialist in gender identity and self-acceptance.
+            </p>
+            <a th:href="@{/student/booking/1}" class="book-button">Book</a>
+          </div>
+          <div class="counselor-card">
+            <div class="counselor-photo" style="background-color: #ccc"></div>
+            <h3 class="counselor-name">Dr. Alex Park</h3>
+            <p class="counselor-bio">
+              Expert in stress management and relationships.
+            </p>
+            <a th:href="@{/student/booking/2}" class="book-button">Book</a>
+          </div>
+          <div class="counselor-card">
+            <div class="counselor-photo" style="background-color: #eee"></div>
+            <h3 class="counselor-name">Dr. Leila Thompson</h3>
+            <p class="counselor-bio">
+              Trauma-informed care and emotional regulation.
+            </p>
+            <a th:href="@{/student/booking/3}" class="book-button">Book</a>
+          </div>
+          <div class="counselor-card">
+            <div class="counselor-photo" style="background-color: #bbb"></div>
+            <h3 class="counselor-name">Dr. Maria Flores</h3>
+            <p class="counselor-bio">Career counseling and anxiety support.</p>
+            <a th:href="@{/student/booking/4}" class="book-button">Book</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,541 @@
+/* --- COUNSELOR DASHBOARD SPECIFIC STYLES --- */
+
+/* The Layout Container */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* 1. SIDEBAR (Left Panel) */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: #2C3E50;
+}
+.sidebar-menu a {
+    display: block;
+    padding: 12px 15px;
+    color: #888;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.sidebar-menu a.active {
+    background-color: #E0E0E0; /* Gray highlight from screenshot */
+    color: #333;
+    font-weight: 600;
+}
+.sidebar-menu a:hover {
+    background-color: #f0f0f0;
+}
+.consular-section {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+.assigned-btn {
+    background-color: #E0E0E0;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-top: 10px;
+}
+
+/* 2. MAIN CONTENT (Right Panel) */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+/* 3. THE STUDENT TABLE (The Green/Blue Card) */
+.student-card {
+    background-color: #A8E6CF; /* The Light Green Header Background */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.table-header-custom {
+    background-color: #A8E6CF; /* Mint Green */
+    padding: 20px;
+    font-weight: bold;
+    color: #556B2F; /* Dark Olive Text */
+    display: flex;
+    justify-content: space-between;
+}
+
+.student-row {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Alternating Row Colors from Screenshot */
+.row-blue { background-color: #87CEEB; } /* Light Blue */
+.row-teal { background-color: #76D7C4; } /* Teal */
+
+.status-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
+}
+.status-red { background-color: #FF6B6B; }
+.status-green { background-color: #55D679; }
+.status-light { background-color: #D4E157; color: #333; }
+
+/* 4. MODAL (Popup) STYLES */
+.modal-header-teal {
+    background-color: #5D9FA3; /* Dark Teal from screenshot */
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+.custom-input {
+    background-color: #EAEAEA;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+.btn-save-teal {
+    background-color: #5D9FA3;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 30px;
+}
+
+:root {
+    --primary-blue: #3B82F6;
+    --primary-green: #34D399;
+    --bg-light: #F9FAFB;
+    --text-dark: #111827;
+    --text-muted: #6B7280;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+}
+
+/* =========================================
+   NAVBAR STYLES
+   ========================================= */
+.navbar {
+    background-color: white;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 1rem 2rem;
+}
+.nav-pill-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50px;
+    padding: 8px 24px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #F3F4F6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   COMMON CARD STYLES
+   ========================================= */
+.card-custom, .result-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px; /* Rounded corners */
+    padding: 2.5rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   DASHBOARD SPECIFIC
+   ========================================= */
+.btn-primary-blue {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 12px 24px;
+    font-weight: 600;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+.btn-primary-blue:hover {
+    background-color: #2563EB;
+    color: white;
+}
+
+/* =========================================
+   FORM SPECIFIC (Radio Buttons)
+   ========================================= */
+.option-card {
+    border: 1px solid #E5E7EB;
+    border-radius: 50px;
+    padding: 15px 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    background: white;
+}
+.option-card:hover {
+    border-color: var(--primary-blue);
+    background-color: #EFF6FF;
+}
+.progress-container {
+    height: 8px;
+    background-color: #E5E7EB;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progress-fill {
+    background-color: var(--primary-green);
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* =========================================
+   RESULT PAGE SPECIFIC (Circular Graph)
+   ========================================= */
+.page-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+}
+.date-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+.circle-wrap {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 50%;
+    background: #E5E7EB;
+}
+.circle-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.score-number {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-dark);
+}
+.score-total {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 220px;
+    transform: rotate(-90deg);
+}
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    transform-origin: 50% 50%;
+    fill: transparent;
+    stroke-width: 20;
+}
+.status-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+.meaning-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+.meaning-text {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+.btn-blue-solid {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    width: 48%;
+}
+.btn-blue-solid:disabled { background-color: #9CA3AF; cursor: not-allowed; }
+.btn-gray-solid {
+    background-color: #F3F4F6;
+    color: #1F2937;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    width: 48%;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+.btn-gray-solid:hover { background-color: #E5E7EB; color: #1F2937; }
+
+
+/* =========================================
+   GLOBAL VARIABLES & RESET
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --primary-blue: #3B82F6;
+    --primary-green: #34D399;
+    --bg-light: #F9FAFB;
+    --text-dark: #111827;
+    --text-muted: #6B7280;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+}
+
+/* =========================================
+   NAVBAR STYLES
+   ========================================= */
+.navbar {
+    background-color: white;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 1rem 2rem;
+}
+.nav-pill-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50px;
+    padding: 8px 24px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #F3F4F6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   COMMON CARD STYLES
+   ========================================= */
+.card-custom, .result-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px; /* Rounded corners */
+    padding: 2.5rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   DASHBOARD SPECIFIC
+   ========================================= */
+.btn-primary-blue {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 12px 24px;
+    font-weight: 600;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+.btn-primary-blue:hover {
+    background-color: #2563EB;
+    color: white;
+}
+
+/* =========================================
+   FORM SPECIFIC (Radio Buttons)
+   ========================================= */
+.option-card {
+    border: 1px solid #E5E7EB;
+    border-radius: 50px;
+    padding: 15px 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    background: white;
+}
+.option-card:hover {
+    border-color: var(--primary-blue);
+    background-color: #EFF6FF;
+}
+.progress-container {
+    height: 8px;
+    background-color: #E5E7EB;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progress-fill {
+    background-color: var(--primary-green);
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* =========================================
+   RESULT PAGE SPECIFIC (Circular Graph)
+   ========================================= */
+.page-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+}
+.date-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+.circle-wrap {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 50%;
+    background: #E5E7EB;
+}
+.circle-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.score-number {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-dark);
+}
+.score-total {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 220px;
+    transform: rotate(-90deg);
+}
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    transform-origin: 50% 50%;
+    fill: transparent;
+    stroke-width: 20;
+}
+.status-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+.meaning-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+.meaning-text {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+.btn-blue-solid {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    width: 48%;
+}
+.btn-blue-solid:disabled { background-color: #9CA3AF; cursor: not-allowed; }
+.btn-gray-solid {
+    background-color: #F3F4F6;
+    color: #1F2937;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    width: 48%;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+.btn-gray-solid:hover { background-color: #E5E7EB; color: #1F2937; }

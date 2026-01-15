@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body style="background-color: #e0f2f7; font-family: 'Poppins', sans-serif">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div
+        class="d-none d-md-block bg-white shadow-sm p-4"
+        style="width: 250px; min-height: 100vh"
+      >
+        <h5 class="fw-bold mb-4" th:text="${username}">Student Name</h5>
+        <a
+          href="/student/dashboard"
+          class="d-block text-decoration-none mb-3 text-muted"
+          >Dashboard</a
+        >
+        <a
+          href="#"
+          class="d-block text-decoration-none mb-3 fw-bold p-2 rounded"
+          style="background-color: #e0f2f7; color: #6baa95"
+          >Progress Tracker</a
+        >
+      </div>
+
+      <div class="container mt-5 px-5">
+        <h2 class="mb-4 fw-bold" style="color: #2c3e50">My Wellness Tracker</h2>
+
+        <!-- Top Card: Mood Input -->
+        <div
+          class="card p-5 mb-4 shadow-sm border-0"
+          style="border-radius: 20px"
+        >
+          <h4 class="fw-bold mb-4">How are you feeling today?</h4>
+
+          <!-- FIX 1: Emojis ordered 1 (Sad) to 5 (Happy) -->
+          <div class="d-flex justify-content-between mb-2 px-2">
+            <div class="text-center">😰<br /><small>1. Anxious</small></div>
+            <div class="text-center">😔<br /><small>2. Sad</small></div>
+            <div class="text-center">😶<br /><small>3. Okay</small></div>
+            <div class="text-center">😐<br /><small>4. Calm</small></div>
+            <div class="text-center">😊<br /><small>5. Happy</small></div>
+          </div>
+
+          <form action="/student/tracker/add" method="post">
+            <!-- Slider -->
+            <input
+              type="range"
+              name="moodLevel"
+              min="1"
+              max="5"
+              class="form-range"
+              style="accent-color: #6baa95"
+              required
+            />
+
+            <input
+              type="text"
+              name="note"
+              class="form-control p-3 mt-3 rounded-3"
+              placeholder="Add a note about your day..."
+              style="background-color: #f8f9fa; border: 1px solid #e9ecef"
+              required
+            />
+
+            <div class="text-end">
+              <button
+                type="submit"
+                class="btn text-white mt-4 px-5 rounded-pill"
+                style="background-color: #6baa95"
+              >
+                Save Mood
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Bottom Card: Chart -->
+        <div
+          class="card p-5 shadow-sm border-0 mb-5"
+          style="border-radius: 20px"
+        >
+          <h4 class="fw-bold mb-4">Mood Tracker Over Time</h4>
+          <!-- FIX 2: Increased height for bigger graph -->
+          <div style="height: 400px">
+            <canvas id="moodChart"></canvas>
+          </div>
+        </div>
+
+        <!-- FIX 3: New Section to Show Notes -->
+        <div class="card p-5 shadow-sm border-0" style="border-radius: 20px">
+          <h4 class="fw-bold mb-4">Recent Entries</h4>
+          <table class="table table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Date</th>
+                <th>Mood</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="entry : ${entries}">
+                <td th:text="${entry.date}"></td>
+                <td th:text="${entry.moodLevel}"></td>
+                <td th:text="${entry.note}" class="text-muted fst-italic"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var entries = /*[[${entries}]]*/ [];
+      /*]]>*/
+      if (entries) {
+        var labels = entries.map((e) => e.date);
+        var dataPoints = entries.map((e) => e.moodLevel);
+
+        var ctx = document.getElementById("moodChart").getContext("2d");
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Mood Level",
+                data: dataPoints,
+                borderColor: "#2E86C1",
+                backgroundColor:
+                  "rgba(46, 134, 193, 0.1)" /* Light blue fill */,
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: "#D35400",
+                pointRadius: 5,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false /* Allows height: 400px to work */,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 5,
+                ticks: { stepSize: 1 },
+              },
+            },
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

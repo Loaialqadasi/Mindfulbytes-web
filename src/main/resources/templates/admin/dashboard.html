@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body style="background-color: #f8f9fa; font-family: 'Poppins', sans-serif">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="d-flex">
+      <!-- SIDEBAR -->
+      <div
+        class="d-none d-md-block bg-white shadow-sm p-4"
+        style="width: 250px; min-height: 100vh"
+      >
+        <!-- Profile Section (From Friend) -->
+        <div class="d-flex align-items-center mb-4">
+          <div
+            style="
+              width: 40px;
+              height: 40px;
+              background-color: #f0f2f5;
+              border-radius: 50%;
+              margin-right: 10px;
+            "
+          ></div>
+          <div>
+            <h6 class="fw-bold mb-0" th:text="${adminName}">Admin</h6>
+            <small class="text-muted">Administrator</small>
+          </div>
+        </div>
+
+        <h5 class="fw-bold mb-4">Admin Panel</h5>
+
+        <!-- Dashboard (Active) -->
+        <a
+          href="#"
+          class="d-block text-decoration-none mb-3 fw-bold p-2 rounded"
+          style="background-color: #e0f2f7; color: #2e86c1"
+        >
+          Dashboard
+        </a>
+
+        <!-- User Management -->
+        <a
+          href="/admin/users"
+          class="d-block text-decoration-none mb-3 text-muted p-2"
+        >
+          User Management
+        </a>
+
+        <!-- Resources (YOUR FEATURE - Added back) -->
+        <a
+          href="/admin/resources"
+          class="d-block text-decoration-none mb-3 text-muted p-2"
+        >
+          Resources
+        </a>
+
+        <hr />
+
+        <!-- Logout -->
+        <a
+          href="/logout"
+          class="d-block text-decoration-none mb-3 text-danger p-2"
+        >
+          Logout
+        </a>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="container mt-5 px-5">
+        <h2 class="fw-bold mb-2">Administrator Dashboard</h2>
+
+        <!-- Dynamic Welcome Message -->
+        <p class="text-muted mb-5">
+          Welcome, <span th:text="${adminName}">Admin</span>!
+        </p>
+
+        <!-- KPI Cards -->
+        <div class="row g-4 mb-5">
+          <div class="col-md-3">
+            <div
+              class="card h-100 shadow-sm border-0 p-3"
+              style="border-radius: 20px"
+            >
+              <div class="card-body">
+                <p class="text-muted mb-1">Total Users</p>
+                <h1 class="fw-bold display-4 mb-0" th:text="${totalUsers}">
+                  0
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              class="card h-100 shadow-sm border-0 p-3"
+              style="border-radius: 20px"
+            >
+              <div class="card-body">
+                <p class="text-muted mb-1">Active Users</p>
+                <h1 class="fw-bold display-4 mb-0" th:text="${activeUsers}">
+                  0
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div
+              class="card shadow-sm border-0 p-4"
+              style="border-radius: 20px"
+            >
+              <h5 class="fw-bold mb-4">Student Engagement</h5>
+              <canvas id="engagementChart"></canvas>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div
+              class="card shadow-sm border-0 p-4"
+              style="border-radius: 20px"
+            >
+              <h5 class="fw-bold mb-4">Mood Distribution</h5>
+              <canvas id="moodDistChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript for Charts -->
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var totalUsers = /*[[${userCount}]]*/ 0;
+      var happy = /*[[${happyCount}]]*/ 0;
+      var neutral = /*[[${neutralCount}]]*/ 0;
+      var sad = /*[[${sadCount}]]*/ 0;
+      /*]]>*/
+
+      // Engagement Chart
+      var engagementData = [
+        totalUsers - 2,
+        totalUsers - 1,
+        totalUsers,
+        totalUsers + 1,
+        totalUsers + 3,
+      ];
+      // Prevent negative numbers in fake data
+      engagementData = engagementData.map((val) => (val < 0 ? 0 : val));
+
+      new Chart(document.getElementById("engagementChart"), {
+        type: "bar",
+        data: {
+          labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+          datasets: [
+            {
+              label: "Active Logins",
+              data: engagementData,
+              backgroundColor: "#5DADE2",
+              borderRadius: 5,
+            },
+          ],
+        },
+        options: { scales: { y: { beginAtZero: true } } },
+      });
+
+      // Mood Chart
+      new Chart(document.getElementById("moodDistChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Happy/Calm", "Neutral", "Sad/Anxious"],
+          datasets: [
+            {
+              data: [happy, neutral, sad],
+              backgroundColor: ["#2ECC71", "#F1C40F", "#E74C3C"],
+            },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>

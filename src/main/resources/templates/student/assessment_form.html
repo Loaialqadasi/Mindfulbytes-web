@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/student/assessment.css}" />
+  </head>
+
+  <body class="bg-light">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="container mt-5 mb-5" style="max-width: 800px">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted small fw-bold">Mental Health Check-in</span>
+        <span class="text-muted small">Step 1 of 2</span>
+      </div>
+      <div class="progress-container mb-5">
+        <div class="progress-fill" style="width: 50%"></div>
+      </div>
+
+      <form th:action="@{/assessment/submit}" method="post">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold mb-3">Required: Standard PHQ-9</h2>
+          <p class="text-muted">
+            Over the last 2 weeks, how often have you been bothered by any of
+            the following problems?
+          </p>
+        </div>
+
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">
+            1. Little interest or pleasure in doing things
+          </h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q1"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q1"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q1"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q1"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">2. Feeling down, depressed, or hopeless</h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q2"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q2"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q2"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q2"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">
+            3. Trouble falling or staying asleep, or sleeping too much
+          </h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q3"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q3"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q3"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q3"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">4. Feeling tired or having little energy</h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q4"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q4"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q4"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q4"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">5. Poor appetite or overeating</h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q5"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q5"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q5"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q5"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">
+            6. Feeling bad about yourself — or that you are a failure
+          </h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q6"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q6"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q6"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q6"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">
+            7. Trouble concentrating on things, such as reading or watching TV
+          </h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q7"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q7"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q7"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q7"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">
+            8. Moving or speaking so slowly that other people could have noticed
+          </h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q8"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q8"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q8"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q8"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+        <div class="mb-5 border-bottom pb-4">
+          <h5 class="fw-bold mb-3">
+            9. Thoughts that you would be better off dead
+          </h5>
+          <div class="d-flex flex-column gap-2">
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q9"
+                value="0"
+                class="form-check-input"
+                required
+              />
+              <span class="ms-2">Not at all</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q9"
+                value="1"
+                class="form-check-input"
+              />
+              <span class="ms-2">Several days</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q9"
+                value="2"
+                class="form-check-input"
+              />
+              <span class="ms-2">More than half</span></label
+            >
+            <label class="option-card"
+              ><input
+                type="radio"
+                name="q9"
+                value="3"
+                class="form-check-input"
+              />
+              <span class="ms-2">Nearly every day</span></label
+            >
+          </div>
+        </div>
+
+        <div class="text-center mb-5">
+          <button
+            type="button"
+            id="toggle-btn"
+            class="btn btn-outline-primary rounded-pill px-4 py-2"
+            onclick="toggleOptional()"
+          >
+            Take Optional Questions (+9)
+          </button>
+        </div>
+
+        <div
+          id="optional-questions"
+          style="display: none"
+          class="p-5 bg-white rounded shadow-sm mb-5 border"
+        >
+          <h3 class="text-center mb-4 text-primary fw-bold">
+            Optional Deep Dive
+          </h3>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">10. Feeling nervous, anxious, or on edge?</h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt1" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt1" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt1" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">
+              11. Not being able to stop or control worrying?
+            </h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt2" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt2" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt2" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">
+              12. Worrying too much about different things?
+            </h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt3" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt3" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt3" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">13. Trouble relaxing?</h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt4" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt4" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt4" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">
+              14. Being so restless that it is hard to sit still?
+            </h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt5" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt5" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt5" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">15. Becoming easily annoyed or irritable?</h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt6" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt6" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt6" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">
+              16. Feeling afraid, as if something awful might happen?
+            </h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt7" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt7" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt7" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">17. Feeling overwhelmed by difficulties?</h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt8" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt8" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt8" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-bold">
+              18. Physical symptoms (headaches, stomach aches)?
+            </h6>
+            <div class="d-flex gap-3">
+              <label
+                ><input type="radio" name="opt9" value="0" /> Not at all</label
+              ><label
+                ><input type="radio" name="opt9" value="1" /> Several
+                days</label
+              ><label
+                ><input type="radio" name="opt9" value="2" /> More than
+                half</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid mt-4">
+          <button
+            type="submit"
+            class="btn btn-success btn-lg rounded-pill"
+            style="background-color: #34d399; border: none"
+          >
+            Calculate Results
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script>
+      function toggleOptional() {
+        var optionalSection = document.getElementById("optional-questions");
+        var btn = document.getElementById("toggle-btn");
+        if (optionalSection.style.display === "none") {
+          optionalSection.style.display = "block";
+          btn.innerHTML = "Hide Extra Questions";
+          btn.className = "btn btn-outline-secondary rounded-pill px-4 py-2";
+        } else {
+          optionalSection.style.display = "none";
+          btn.innerHTML = "Take Optional Questions (+9)";
+          btn.className = "btn btn-outline-primary rounded-pill px-4 py-2";
+        }
+      }
+    </script>
+  </body>
+</html>

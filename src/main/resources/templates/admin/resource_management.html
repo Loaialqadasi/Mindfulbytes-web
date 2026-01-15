@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+
+  <!-- Custom Styles for this page -->
+  <head>
+    <style>
+      body { background-color: #f8f9fa; }
+
+      /* Card Styling */
+      .admin-card {
+          border: none;
+          border-radius: 15px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          background: white;
+          overflow: hidden;
+      }
+
+      .card-header-custom {
+          background-color: white;
+          border-bottom: 1px solid #f0f0f0;
+          padding: 20px 30px;
+      }
+
+      /* Form Controls */
+      .form-control, .form-select {
+          border-radius: 10px;
+          border: 1px solid #e0e0e0;
+          padding: 10px 15px;
+      }
+      .form-control:focus, .form-select:focus {
+          box-shadow: 0 0 0 3px rgba(104, 160, 153, 0.2);
+          border-color: #68a099;
+      }
+
+      /* Table Styling */
+      .resource-table {
+          border-collapse: separate;
+          border-spacing: 0 10px; /* Space between rows */
+      }
+
+      .resource-table thead th {
+          border: none;
+          background-color: #68a099;
+          color: white;
+          font-weight: 600;
+          padding: 15px;
+      }
+
+      .resource-table thead th:first-child {
+          border-top-left-radius: 10px;
+      }
+
+      .resource-table thead th:last-child {
+          border-top-right-radius: 10px;
+      }
+
+      .resource-table tbody tr {
+          background-color: white;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+          transition: transform 0.2s;
+      }
+
+      .resource-table tbody tr:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      }
+
+      .resource-table td {
+          border: none;
+          padding: 15px;
+          vertical-align: middle;
+      }
+
+      /* Badges for File Types */
+      .badge-type {
+          padding: 8px 12px;
+          border-radius: 30px;
+          font-size: 0.85rem;
+          font-weight: 600;
+      }
+      .type-video { background-color: #e3f2fd; color: #1565c0; }
+      .type-audio { background-color: #f3e5f5; color: #7b1fa2; }
+      .type-article { background-color: #fff3e0; color: #e65100; }
+    </style>
+  </head>
+
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div
+        class="d-none d-md-block bg-white shadow-sm p-4"
+        style="width: 250px; min-height: 100vh"
+      >
+        <h5 class="fw-bold mb-4" style="color: #2e4053">Admin Panel</h5>
+
+        <a
+          href="/admin/dashboard"
+          class="d-flex align-items-center text-decoration-none mb-3 text-muted p-2 rounded hover-effect"
+        >
+          <i class="fas fa-chart-line me-2"></i> Dashboard
+        </a>
+
+        <a
+          href="/admin/users"
+          class="d-flex align-items-center text-decoration-none mb-3 text-muted p-2 rounded hover-effect"
+        >
+          <i class="fas fa-users me-2"></i> Users
+        </a>
+
+        <!-- Active Link -->
+        <a
+          href="/admin/resources"
+          class="d-flex align-items-center text-decoration-none mb-3 fw-bold p-2 rounded"
+          style="background-color: #68a099; color: white"
+        >
+          <i class="fas fa-book-open me-2"></i> Resources
+        </a>
+      </div>
+
+      <!-- Main Content -->
+      <div class="container-fluid p-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="fw-bold" style="color: #2e4053">Library Resources</h2>
+            <p class="text-muted">
+              Upload and manage content for the student library.
+            </p>
+          </div>
+        </div>
+
+        <!-- Upload Form Card -->
+        <div class="admin-card mb-5">
+          <div class="card-header-custom">
+            <h5 class="fw-bold m-0">
+              <i class="fas fa-cloud-upload-alt me-2 text-primary"></i> Upload
+              New Content
+            </h5>
+          </div>
+          <div class="card-body p-4">
+            <form
+              action="/admin/resource/add"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="row">
+                <div class="col-md-5 mb-3">
+                  <label class="form-label fw-bold small text-muted"
+                    >TITLE</label
+                  >
+                  <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    placeholder="e.g. Morning Meditation"
+                    required
+                  />
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="form-label fw-bold small text-muted"
+                    >TYPE</label
+                  >
+                  <select name="type" class="form-select">
+                    <option value="Video">Video</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Article">Article</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label fw-bold small text-muted"
+                    >FILE UPLOAD</label
+                  >
+                  <input
+                    type="file"
+                    name="file"
+                    class="form-control"
+                    accept="video/*,audio/*,image/*,application/pdf"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label fw-bold small text-muted"
+                    >TOOLKIT CATEGORY</label
+                  >
+                  <select name="toolkitId" class="form-select">
+                    <option value="1">Mindful Moments</option>
+                    <option value="2">Resilience Toolkit</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label fw-bold small text-muted"
+                    >DURATION</label
+                  >
+                  <input
+                    type="text"
+                    name="duration"
+                    class="form-control"
+                    placeholder="e.g. 5 min"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold small text-muted"
+                  >DESCRIPTION</label
+                >
+                <textarea
+                  name="description"
+                  class="form-control"
+                  rows="2"
+                  placeholder="Brief description..."
+                ></textarea>
+              </div>
+
+              <div class="d-grid d-md-flex justify-content-md-end">
+                <button
+                  type="submit"
+                  class="btn text-white px-4 py-2 rounded-pill"
+                  style="background-color: #68a099"
+                >
+                  <i class="fas fa-plus me-2"></i> Add Resource
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- List of Current Resources -->
+        <h5 class="fw-bold mb-3" style="color: #2e4053">
+          Current Library Content
+        </h5>
+
+        <table class="table resource-table">
+          <thead>
+            <tr>
+              <th style="border-top-left-radius: 10px">Title</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>File Name</th>
+              <th style="border-top-right-radius: 10px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="res : ${resources}">
+              <td class="fw-bold" th:text="${res.title}"></td>
+
+              <!-- Color Coded Badge -->
+              <td>
+                <span
+                  class="badge-type type-video"
+                  th:if="${res.type == 'Video'}"
+                  ><i class="fas fa-video me-1"></i> Video</span
+                >
+                <span
+                  class="badge-type type-audio"
+                  th:if="${res.type == 'Audio'}"
+                  ><i class="fas fa-headphones me-1"></i> Audio</span
+                >
+                <span
+                  class="badge-type type-article"
+                  th:if="${res.type == 'Article'}"
+                  ><i class="fas fa-file-alt me-1"></i> Article</span
+                >
+              </td>
+
+              <td
+                th:text="${res.toolkitId == 1 ? 'Mindful Moments' : 'Resilience Toolkit'}"
+              ></td>
+
+              <td class="text-muted small">
+                <i class="fas fa-paperclip me-1"></i>
+                <span th:text="${#strings.abbreviate(res.fileName, 20)}"></span>
+              </td>
+
+              <td>
+                <div class="d-flex gap-2">
+                  <a
+                    th:href="@{/admin/resource/edit/{id}(id=${res.id})}"
+                    class="btn btn-sm btn-outline-primary rounded-pill"
+                  >
+                    <i class="fas fa-edit"></i> Edit
+                  </a>
+
+                  <form action="/admin/resource/delete" method="post">
+                    <input type="hidden" name="id" th:value="${res.id}" />
+                    <button
+                      class="btn btn-sm btn-outline-danger rounded-pill"
+                      onclick="return confirm('Are you sure?')"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Empty State -->
+        <div
+          th:if="${#lists.isEmpty(resources)}"
+          class="text-center py-5 text-muted"
+        >
+          <i class="fas fa-folder-open fa-3x mb-3" style="color: #e0e0e0"></i>
+          <p>No resources found. Upload your first file above!</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

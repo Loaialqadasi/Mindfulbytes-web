@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body style="background-color: #f8f9fa; font-family: 'Poppins', sans-serif">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="d-flex">
+      <!-- Admin Sidebar -->
+      <div
+        class="d-none d-md-block bg-white shadow-sm p-4"
+        style="width: 250px; min-height: 100vh"
+      >
+        <!-- Admin Profile -->
+        <div class="d-flex align-items-center mb-4">
+          <div
+            style="
+              width: 40px;
+              height: 40px;
+              background-color: #f0f2f5;
+              border-radius: 50%;
+              margin-right: 10px;
+            "
+          ></div>
+          <div>
+            <h6 class="fw-bold mb-0" th:text="${adminName}">Admin</h6>
+            <small class="text-muted">Administrator</small>
+          </div>
+        </div>
+
+        <h5 class="fw-bold mb-4">Admin Panel</h5>
+
+        <a
+          href="/admin/dashboard"
+          class="d-block text-decoration-none mb-3 text-muted p-2 rounded hover-effect"
+        >
+          Dashboard
+        </a>
+
+        <!-- Active State -->
+        <a
+          href="/admin/users"
+          class="d-block text-decoration-none mb-3 fw-bold p-2 rounded"
+          style="background-color: #6baa95; color: white"
+        >
+          User Management
+        </a>
+
+        <!-- YOUR FEATURE -->
+        <a
+          href="/admin/resources"
+          class="d-block text-decoration-none mb-3 text-muted p-2 rounded hover-effect"
+        >
+          Resources
+        </a>
+
+        <hr />
+        <a
+          href="/logout"
+          class="d-block text-decoration-none mb-3 text-danger p-2"
+          >Logout</a
+        >
+      </div>
+
+      <!-- Main Content -->
+      <div class="container mt-5 px-5">
+        <!-- Error Alert -->
+        <div
+          th:if="${param.error}"
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Action Failed!</strong>
+          <span
+            th:text="${param.error == 'selfban' ? 'You cannot ban yourself.' : 'Operation failed.'}"
+            >Error</span
+          >
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="fw-bold">User Management</h2>
+          <button
+            class="btn text-white rounded-pill px-4"
+            style="background-color: #6baa95"
+            data-bs-toggle="modal"
+            data-bs-target="#addUserModal"
+          >
+            + Add New User
+          </button>
+        </div>
+
+        <!-- User Table Card -->
+        <div class="card shadow-sm border-0" style="border-radius: 20px">
+          <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+              <thead style="background-color: #f8f9fa">
+                <tr class="text-muted text-uppercase small">
+                  <th class="ps-4 py-3">User Name</th>
+                  <th>User ID</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  th:each="user : ${users}"
+                  style="border-bottom: 1px solid #eee"
+                >
+                  <td class="ps-4 py-3 fw-bold" th:text="${user.name}"></td>
+                  <td class="text-muted" th:text="${user.userId}"></td>
+                  <td class="text-muted" th:text="${user.role}"></td>
+
+                  <td>
+                    <span
+                      th:if="${user.status == 'Active'}"
+                      class="badge rounded-pill text-success"
+                      style="background-color: #e8f5e9; padding: 8px 12px"
+                      >Active</span
+                    >
+                    <span
+                      th:if="${user.status == 'Banned'}"
+                      class="badge rounded-pill text-dark"
+                      style="background-color: #e0e0e0; padding: 8px 12px"
+                      >Inactive</span
+                    >
+                  </td>
+
+                  <td>
+                    <div class="d-flex gap-2">
+                      <!-- Deactivate -->
+                      <form
+                        th:if="${user.status == 'Active'}"
+                        action="/admin/ban"
+                        method="post"
+                        style="display: inline"
+                      >
+                        <input
+                          type="hidden"
+                          name="userId"
+                          th:value="${user.userId}"
+                        />
+                        <button
+                          type="submit"
+                          class="btn btn-sm rounded-pill px-3 fw-bold"
+                          style="background-color: #ffe0b2; color: #d35400"
+                        >
+                          Deactivate
+                        </button>
+                      </form>
+
+                      <!-- Activate -->
+                      <form
+                        th:if="${user.status == 'Banned'}"
+                        action="/admin/unban"
+                        method="post"
+                        style="display: inline"
+                      >
+                        <input
+                          type="hidden"
+                          name="userId"
+                          th:value="${user.userId}"
+                        />
+                        <button
+                          type="submit"
+                          class="btn btn-sm rounded-pill px-3 fw-bold"
+                          style="background-color: #c8e6c9; color: #2e7d32"
+                        >
+                          Activate
+                        </button>
+                      </form>
+
+                      <!-- Delete (New Feature from Friend) -->
+                      <form
+                        action="/admin/user/delete"
+                        method="post"
+                        style="display: inline"
+                        onsubmit="return confirm('Are you sure you want to delete this user?');"
+                      >
+                        <input
+                          type="hidden"
+                          name="userId"
+                          th:value="${user.userId}"
+                        />
+                        <button
+                          type="submit"
+                          class="btn btn-sm rounded-pill px-3 fw-bold text-white"
+                          style="background-color: #e74c3c"
+                        >
+                          Delete
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold">Add New User</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/admin/user/add" method="post">
+              <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Role</label>
+                <select name="role" class="form-select">
+                  <option value="Student">Student</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Counselor">Counselor</option>
+                </select>
+              </div>
+              <button
+                type="submit"
+                class="btn text-white w-100"
+                style="background-color: #6baa95"
+              >
+                Create User
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

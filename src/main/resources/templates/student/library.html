@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+    <main class="content">
+      <div class="library-wrapper">
+        <div class="library-header">
+          <h2>Mindful Bytes Help Library</h2>
+          <p>Tools to support your well-being.</p>
+        </div>
+        <div class="toolkit-grid">
+          <a th:href="@{/student/toolkit/1}" class="toolkit-card featured">
+            <h3>Mindful Moments</h3>
+            <p>Guided exercises.</p>
+          </a>
+          <a th:href="@{/student/toolkit/2}" class="toolkit-card">
+            <h3>Resilience Toolkit</h3>
+            <p>Bounce back from challenges.</p>
+          </a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

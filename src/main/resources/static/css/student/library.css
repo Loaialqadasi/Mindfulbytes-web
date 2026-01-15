@@ -1,0 +1,23 @@
+.library-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+.toolkit-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #333;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.toolkit-card.featured {
+  background: #68a099;
+  color: white;
+}

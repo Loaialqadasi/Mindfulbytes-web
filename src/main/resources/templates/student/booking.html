@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+    <main class="content">
+      <div class="booking-wrapper">
+        <a th:href="@{/student/counselors}" class="back-link"
+          >&larr; Back to Counselors</a
+        >
+        <div class="booking-header">
+          <h2>
+            Book a Session with
+            <span th:text="${counselorName}">Counselor</span>
+          </h2>
+          <p>Please select a day and time.</p>
+        </div>
+        <form th:action="@{/student/booking/submit}" method="post">
+          <input type="hidden" id="selected-day-input" name="day" />
+          <input type="hidden" id="selected-time-input" name="time" />
+          <div class="booking-interface">
+            <div class="calendar-widget">
+              <div class="calendar-header"><h3>July 2026</h3></div>
+              <div class="calendar-grid">
+                <div class="day-name">M</div>
+                <div class="day-name">T</div>
+                <div class="day-name">W</div>
+                <div class="day-name">T</div>
+                <div class="day-name">F</div>
+                <div class="day-name">S</div>
+                <div class="day-name">S</div>
+                <div class="day">1</div>
+                <div class="day">2</div>
+                <div class="day">3</div>
+                <div class="day">4</div>
+                <div class="day">5</div>
+                <div class="day">6</div>
+                <div class="day">7</div>
+                <div class="day">8</div>
+                <div class="day">9</div>
+                <div class="day">10</div>
+                <div class="day">11</div>
+                <div class="day">12</div>
+                <div class="day">13</div>
+                <div class="day">14</div>
+                <div class="day">15</div>
+              </div>
+            </div>
+            <div class="time-slots">
+              <h4 id="time-slots-header">Select a date</h4>
+              <div class="slots-container">
+                <button type="button" class="time-slot-btn">8:00 AM</button>
+                <button type="button" class="time-slot-btn">10:00 AM</button>
+                <button type="button" class="time-slot-btn">2:00 PM</button>
+              </div>
+            </div>
+          </div>
+          <div class="confirm-section">
+            <button id="confirm-btn" type="submit" class="confirm-btn" disabled>
+              Confirm Session
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const days = document.querySelectorAll(".calendar-grid .day");
+        const times = document.querySelectorAll(".time-slot-btn");
+        const btn = document.getElementById("confirm-btn");
+        let d = null,
+          t = null;
+        days.forEach((day) =>
+          day.addEventListener("click", function () {
+            days.forEach((x) => x.classList.remove("selected"));
+            this.classList.add("selected");
+            d = this.textContent;
+            document.getElementById("selected-day-input").value = d;
+            check();
+          })
+        );
+        times.forEach((time) =>
+          time.addEventListener("click", function () {
+            times.forEach((x) => x.classList.remove("selected"));
+            this.classList.add("selected");
+            t = this.textContent;
+            document.getElementById("selected-time-input").value = t;
+            check();
+          })
+        );
+        function check() {
+          btn.disabled = !(d && t);
+        }
+      });
+    </script>
+  </body>
+</html>

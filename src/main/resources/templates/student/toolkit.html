@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+    <main class="content">
+      <div class="toolkit-wrapper">
+        <a th:href="@{/student/library}" class="back-link">&larr; Back</a>
+        <div class="toolkit-header">
+          <h2 th:text="${toolkitTitle}">Toolkit</h2>
+        </div>
+        <div class="resource-list">
+          <div class="resource-card" th:each="resource : ${resources}">
+            <div
+              class="resource-media"
+              th:if="${resource.fileName != null and resource.type == 'Video'}"
+              style="margin-right: 20px"
+            >
+              <video
+                width="200"
+                controls
+                style="border-radius: 8px; background: #000"
+              >
+                <source
+                  th:src="@{'/uploads/' + ${resource.fileName}}"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+            <div
+              class="resource-media"
+              th:if="${resource.fileName != null and resource.type == 'Audio'}"
+              style="margin-right: 20px"
+            >
+              <audio controls style="width: 250px">
+                <source
+                  th:src="@{'/uploads/' + ${resource.fileName}}"
+                  type="audio/mpeg"
+                />
+              </audio>
+            </div>
+            <div class="resource-details">
+              <h3 th:text="${resource.title}">Title</h3>
+              <p th:text="${resource.description}">Desc</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

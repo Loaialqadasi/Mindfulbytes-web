@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+    <main class="content">
+      <div class="chatbot-wrapper">
+        <div class="chatbot-header"><h2>AI Assistant</h2></div>
+        <div class="chat-window" id="chat-window">
+          <div class="chat-message bot-message">
+            <div class="message-bubble"><p>Hi, I'm Calmi.</p></div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input
+            type="text"
+            id="user-input"
+            class="chat-input"
+            placeholder="Type..."
+          />
+          <button class="send-button" onclick="sendMessage()">&#9658;</button>
+        </div>
+      </div>
+    </main>
+    <script>
+      const chatWindow = document.getElementById("chat-window");
+      const userInput = document.getElementById("user-input");
+      function sendMessage() {
+        const msg = userInput.value.trim();
+        if (!msg) return;
+        append(msg, "user-message");
+        userInput.value = "";
+        const loadId = append("Thinking...", "bot-message");
+        fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg }),
+        })
+          .then((r) => r.json())
+          .then((d) => {
+            remove(loadId);
+            append(d.reply, "bot-message");
+          });
+      }
+      function append(txt, cls) {
+        const d = document.createElement("div");
+        d.className = "chat-message " + cls;
+        d.id = Math.random().toString(36);
+        d.innerHTML = `<div class="message-bubble"><p>${txt}</p></div>`;
+        chatWindow.appendChild(d);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        return d.id;
+      }
+      function remove(id) {
+        document.getElementById(id)?.remove();
+      }
+    </script>
+  </body>
+</html>

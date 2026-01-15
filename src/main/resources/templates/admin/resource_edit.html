@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body style="background-color: #f8f9fa">
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div
+        class="bg-white shadow-sm p-4"
+        style="width: 250px; min-height: 100vh"
+      >
+        <h5 class="fw-bold mb-4">Admin Panel</h5>
+        <a
+          href="/admin/resources"
+          class="d-block text-decoration-none mb-3 text-muted"
+          >&larr; Back to List</a
+        >
+      </div>
+
+      <div class="container mt-5 px-5">
+        <h2 class="fw-bold mb-4">Edit Resource</h2>
+
+        <div class="card shadow-sm border-0 mb-5">
+          <div class="card-body">
+            <form
+              action="/admin/resource/update"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input type="hidden" name="id" th:value="${resource.id}" />
+              <input
+                type="hidden"
+                name="currentFileName"
+                th:value="${resource.fileName}"
+              />
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Title</label>
+                  <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    th:value="${resource.title}"
+                    required
+                  />
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label>Type</label>
+                  <select name="type" class="form-select">
+                    <option
+                      value="Video"
+                      th:selected="${resource.type == 'Video'}"
+                    >
+                      Video
+                    </option>
+                    <option
+                      value="Audio"
+                      th:selected="${resource.type == 'Audio'}"
+                    >
+                      Audio
+                    </option>
+                    <option
+                      value="Article"
+                      th:selected="${resource.type == 'Article'}"
+                    >
+                      Article
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label>Duration</label>
+                  <input
+                    type="text"
+                    name="duration"
+                    class="form-control"
+                    th:value="${resource.duration}"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold"
+                  >Update Media File (Optional)</label
+                >
+                <div class="text-muted small mb-2">
+                  Current file:
+                  <span
+                    th:text="${resource.fileName != null ? resource.fileName : 'None'}"
+                  ></span>
+                </div>
+                <input
+                  type="file"
+                  name="file"
+                  class="form-control"
+                  accept="video/*,audio/*,image/*,application/pdf"
+                />
+                <small class="text-muted"
+                  >Leave empty to keep the current file.</small
+                >
+              </div>
+
+              <div class="mb-3">
+                <label>Target Toolkit</label>
+                <select name="toolkitId" class="form-select">
+                  <option value="1" th:selected="${resource.toolkitId == 1}">
+                    Mindful Moments
+                  </option>
+                  <option value="2" th:selected="${resource.toolkitId == 2}">
+                    Resilience Toolkit
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label>Description</label>
+                <textarea
+                  name="description"
+                  class="form-control"
+                  rows="2"
+                  th:text="${resource.description}"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="btn text-white"
+                style="background-color: #6baa95"
+              >
+                Save Changes
+              </button>
+              <a href="/admin/resources" class="btn btn-secondary">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

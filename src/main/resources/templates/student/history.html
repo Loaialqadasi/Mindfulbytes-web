@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/header :: headContent}"></head>
+  <body>
+    <nav th:replace="~{fragments/header :: navbar}"></nav>
+    <div class="container mt-5">
+      <h2>Assessment History</h2>
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="r : ${history}">
+            <td th:text="${r.createdAt}"></td>
+            <td th:text="${r.score}"></td>
+            <td th:text="${r.feedback}"></td>
+            <td>
+              <a
+                th:href="@{/assessment/edit/{id}(id=${r.id})}"
+                class="btn btn-sm btn-warning"
+                >Edit</a
+              >
+              <a
+                th:href="@{/assessment/delete/{id}(id=${r.id})}"
+                class="btn btn-sm btn-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
